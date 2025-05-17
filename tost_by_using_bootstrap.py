@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.stats import norm
 
-def tost_bootstrap(x, y, low_eqbound, high_eqbound, n_bootstrap=10000, delta=0.05):
+def tost_bootstrap(x, y, low_eqbound, high_eqbound, n_bootstrap=10000, p_val=0.05):
     observed_diff = np.median(x) - np.median(y)
 
     boot_diffs = []
@@ -16,7 +16,7 @@ def tost_bootstrap(x, y, low_eqbound, high_eqbound, n_bootstrap=10000, delta=0.0
     p_low = np.mean(boot_diffs < low_eqbound)
     p_high = np.mean(boot_diffs > high_eqbound)
 
-    tost_passed = (p_low < delta) and (p_high < delta)
+    tost_passed = (p_low < p_val) and (p_high < p_val)
 
     result = {
         "observed_difference": observed_diff,
